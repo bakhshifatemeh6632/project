@@ -1,10 +1,25 @@
-class Car:
-    def __init__(self, color, model):  # اینجا باید __init__ باشه
-        self.color = color
-        self.model = model
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
 
-    def my_info(self):
-        print(f"My car: {self.color}, model: {self.model}")
+# داده‌ی فرضی: متراژ خانه (X) و قیمت خانه (y)
+X = np.array([[50], [60], [80], [100], [120]])  # متراژ
+y = np.array([150, 180, 220, 260, 300])        # قیمت (میلیون)
 
-mycar = Car("yellow", "pejoct")
-mycar.my_info()
+# ساخت مدل
+model = LinearRegression()
+
+# آموزش مدل
+model.fit(X, y)
+
+# پیش‌بینی قیمت برای خانه‌ی 90 متری
+pred = model.predict([[90]])
+print("قیمت پیش‌بینی‌شده برای 90 متر:", pred[0])
+
+# رسم نمودار
+plt.scatter(X, y, color='blue', label="داده واقعی")
+plt.plot(X, model.predict(X), color='red', label="خط رگرسیون")
+plt.xlabel("متراژ (متر)")
+plt.ylabel("قیمت (میلیون)")
+plt.legend()
+plt.show()
